@@ -1,0 +1,29 @@
+<mat-nav-list>
+  <div class="profile-card" *ngIf="modulesService.userProfileData">
+    <div class="header">
+        <p *ngIf="modulesService.userProfileData.admin">Admin</p>
+      <h2>{{modulesService.userProfileData.name}}</h2>
+      <h4>{{modulesService.userProfileData.email}}</h4>
+    </div>
+    <img src="/assets/img/single_user.png" alt=""><br>
+
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+    <mat-divider></mat-divider>
+  </div>
+
+
+
+  <!-- <h2 matSubheader>Authentication</h2> -->
+  <div *ngIf="!modulesService.userProfileData; else elseBlock">
+    <a mat-list-item routerLink="/sign-up" routerLinkActive="list-item-active">Register</a>
+    <a mat-list-item routerLink="/sign-in" routerLinkActive="list-item-active">Login</a>
+  </div>
+  <ng-template #elseBlock>
+    <a mat-list-item routerLink="/eventDetails" routerLinkActive="list-item-active">Events</a>
+    <div *ngIf="modulesService.userProfileData.admin">
+      <a mat-list-item routerLink="/add-event" routerLinkActive="list-item-active">Add Event</a>
+    </div>
+  </ng-template>
+
+
+</mat-nav-list>

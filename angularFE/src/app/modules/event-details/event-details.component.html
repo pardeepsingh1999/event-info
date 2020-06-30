@@ -1,0 +1,28 @@
+<div *ngIf="eventDetails.length > 0; else elseBlock">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false"
+                          *ngFor="let eventDetail of eventDetails">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{eventDetail.event_category}}
+          </mat-panel-title>
+          <mat-panel-description>Click to see more Details</mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <p>Event Name: <b>{{eventDetail.event_name}}</b></p>
+        <mat-divider></mat-divider>
+        <p>Event Description: <b>{{eventDetail.event_description}}</b></p>
+        <mat-divider></mat-divider>
+        <p>Event Location: <b>{{eventDetail.event_location}}</b></p>
+        <mat-divider></mat-divider>
+        <p>Event Date,Time(24h): <b>{{eventDetail.event_date_and_time.split('T')}}</b></p>
+        <mat-divider></mat-divider>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+</div>
+
+<ng-template #elseBlock>
+  <mat-card>Event is not added yet!!!</mat-card>
+</ng-template>

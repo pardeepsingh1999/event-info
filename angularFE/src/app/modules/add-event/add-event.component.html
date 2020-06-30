@@ -1,0 +1,101 @@
+<div class="main-div">
+
+  <mat-card>
+      <h2>Add Event</h2>
+
+    <mat-card-content>
+      <form #eventAddForm="ngForm" (ngSubmit)="eventAddForm.valid && onSubmit(eventAddForm)">
+
+        <mat-form-field>
+          <mat-label>Event Name</mat-label>
+          <input matInput #event_name="ngModel" [(ngModel)]="modulesService.selectedEvent.event_name"
+          name="event_name" placeholder="Event Name" required
+          minlength="3" maxlength="20"
+          [ngClass]="{'invalid-textbox': eventAddForm.submitted && !event_name.valid}">
+            <mat-error *ngIf="event_name.errors">
+              <span *ngIf="event_name.errors.required">This field is required.</span>
+              <span *ngIf="event_name.errors.minlength">Enter atleast 3 characters.</span>
+              <span *ngIf="event_name.errors.maxlength">Enter atleast 20 characters.</span>
+            </mat-error>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field>
+          <mat-label>Event Category</mat-label>
+
+          <mat-select #event_category="ngModel" name="event_category" required
+          [(ngModel)]="modulesService.selectedEvent.event_category"
+          [ngClass]="{'invalid-textbox': eventAddForm.submitted && !event_category.valid}">
+          <mat-option value="Webinar">Webinar</mat-option>
+          <mat-option value="Seminar">Seminar</mat-option>
+          <mat-option value="Blood donation">Blood donation</mat-option>
+          <mat-option value="General Society meet">General Society meet</mat-option>
+          </mat-select>
+          <mat-error *ngIf="event_category.invalid">
+            <span>This field is required.</span>
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <mat-label>Event Description</mat-label>
+          <textarea matInput placeholder="Event Description..."
+          #event_description="ngModel"
+          [(ngModel)]="modulesService.selectedEvent.event_description"
+          name="event_description" required
+          [ngClass]="{'invalid-textbox': eventAddForm.submitted && !event_description.valid}"
+          ></textarea>
+          <mat-error *ngIf="event_description.errors">
+            <span *ngIf="event_description.errors.required">This field is required.</span>
+          </mat-error>
+        </mat-form-field><br>
+
+        <mat-form-field>
+          <mat-label>Event Location</mat-label>
+          <input matInput placeholder="Event Location"
+          #event_location="ngModel" type="text"
+          [(ngModel)]="modulesService.selectedEvent.event_location"
+          name="event_location" required
+          [ngClass]="{'invalid-textbox': eventAddForm.submitted && !event_location.valid}">
+          <mat-error *ngIf="event_location.errors">
+            <span *ngIf="event_location.errors.required">This field is required.</span>
+          </mat-error>
+        </mat-form-field><br>
+
+        <mat-form-field>
+          <mat-label>Event Date and Time</mat-label>
+
+          <input matInput type="datetime-local"
+          #event_date_and_time="ngModel"
+          [(ngModel)]="modulesService.selectedEvent.event_date_and_time"
+          name="event_date_and_time" placeholder="Event Date and Timing" [min]="minDate"
+          [ngClass]="{'invalid-textbox': eventAddForm.submitted && !event_date_and_time.valid}" required>
+          <mat-error *ngIf="event_date_and_time.errors">
+            <span *ngIf="event_date_and_time.errors.required">This field is required.</span>
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-card-actions>
+          <input type="submit" value="Add Event">
+        </mat-card-actions>
+
+      </form>
+
+    </mat-card-content>
+
+    <!-- success message -->
+    <div class="success" *ngIf="showSuccessMessage">
+      Saved successfully
+    </div>
+
+    <!-- error message -->
+    <div class="alert" *ngIf="serverErrorMessages">
+      {{serverErrorMessages}}
+    </div>
+
+
+
+  </mat-card>
+
+  </div>

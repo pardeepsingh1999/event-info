@@ -1,0 +1,87 @@
+<div class="main-div">
+
+<mat-card>
+    <h2>Registration</h2>
+
+  <mat-card-content>
+    <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput #name="ngModel" [(ngModel)]="modulesService.selectedUser.name"
+        name="name" placeholder="Full Name" required
+        minlength="3" maxlength="20"
+        [ngClass]="{'invalid-textbox': signUpForm.submitted && !name.valid}">
+          <mat-error *ngIf="name.errors">
+            <span *ngIf="name.errors.required">This field is required.</span>
+            <span *ngIf="name.errors.minlength">Enter atleast 3 characters.</span>
+            <span *ngIf="name.errors.maxlength">Enter atleast 20 characters.</span>
+          </mat-error>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="pat@example.com"
+        #email="ngModel" type="email"
+        [(ngModel)]="modulesService.selectedUser.email"
+        name="email" placeholder="Email"
+        [ngClass]="{'invalid-textbox': signUpForm.submitted && !email.valid}"
+        [pattern]="modulesService.emailRegex" required>
+        <mat-error *ngIf="email.errors">
+          <span *ngIf="email.errors.required">This field is required.</span>
+          <span *ngIf="email.errors.pattern">Invalid email address.</span>
+        </mat-error>
+      </mat-form-field><br>
+
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput placeholder="Age"
+        #age="ngModel" type="number"
+        [(ngModel)]="modulesService.selectedUser.age"
+        name="age" placeholder="age" required
+        [ngClass]="{'invalid-textbox': signUpForm.submitted && !age.valid}">
+        <mat-error *ngIf="age.errors">
+          <span *ngIf="age.errors.required">This field is required.</span>
+          <!-- <span *ngIf="age.errors.minlength">Age greater than 12</span> -->
+        </mat-error>
+      </mat-form-field><br>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" #password="ngModel"
+        [(ngModel)]="modulesService.selectedUser.password"
+        name="password" placeholder="password"
+        minlength="4" required
+        [ngClass]="{'invalid-textbox': signUpForm.submitted && !password.valid}">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon class="passEye">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.errors">
+          <span *ngIf="password.errors.required">This field is required.</span>
+          <span *ngIf="password.errors.minlength">Enter atleast 4 characters.</span>
+        </mat-error>
+      </mat-form-field><br>
+
+      <mat-card-actions>
+        <input type="submit" value="Sign Up">
+      </mat-card-actions>
+
+    </form>
+
+  </mat-card-content>
+
+      <!-- success message -->
+    <div class="success" *ngIf="showSuccessMessage">
+      Saved successfully
+    </div>
+
+    <!-- error message -->
+    <div class="alert" *ngIf="serverErrorMessages">
+      {{serverErrorMessages}}
+    </div>
+
+
+</mat-card>
+
+</div>
